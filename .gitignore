@@ -1,0 +1,20 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual environment
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+
+# VS Code
+.vscode/
+
+# Generated documents
+llm/documents/
+
+# Generated csv 
+data/*.csv
