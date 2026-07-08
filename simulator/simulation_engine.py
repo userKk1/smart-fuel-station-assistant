@@ -71,6 +71,8 @@ class SimulationEngine:
 
             "station_id": pump["station_id"],
 
+            "station_name": pump["station_name"],
+
             "failure_type": failure_type,
 
             "start_date": self.current_date,
@@ -224,8 +226,6 @@ class SimulationEngine:
             "reason": reason,
 
             "affected_customers": 1,
-
-            "complaint_text": "",
 
             "resolved": False
 

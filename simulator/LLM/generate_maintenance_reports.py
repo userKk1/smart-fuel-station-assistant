@@ -2,8 +2,8 @@ from pathlib import Path
 
 import pandas as pd
 
-from llm_client import generate
-from prompts import MAINTENANCE_PROMPT
+from .llm_client import generate
+from .prompts import MAINTENANCE_PROMPT
 
 
 INPUT_FILE = "data/maintenance.csv"
@@ -23,19 +23,25 @@ def generate_maintenance_reports():
 
         prompt = MAINTENANCE_PROMPT.format(
 
-            date=row["date"],
+            date=row["start_date"],
 
-            station=row["station_name"],
+            station_id=row["station_id"],
 
-            city=row["city"],
+            station_name=row["station_name"],
 
-            pump=row["pump_id"],
+            pump_id=row["pump_id"],
 
-            failure=row["failure_type"],
+            failure_type=row["failure_type"],
 
-            repair_time=row["repair_days"],
+            start_date=row["start_date"],
 
-            technician=row["technician"]
+            expected_end_date=row["expected_end_date"],
+
+            end_date=row["end_date"],
+
+            technician=row["technician"],
+
+            status=row["status"]
 
         )
 

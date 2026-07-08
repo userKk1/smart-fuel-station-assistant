@@ -1,32 +1,24 @@
-from google import genai
-from dotenv import load_dotenv
+from groq import Groq
 import os
+from dotenv import load_dotenv
 
 load_dotenv()
 
-MODEL = "gemini-2.5-flash"
-
-client = genai.Client(
-    api_key=os.getenv("GEMINI_API_KEY")
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
 )
 
+def generate(prompt):
 
-def generate(prompt: str) -> str:
-    """
-    Génère une réponse à partir d'un prompt.
-    """
+    completion = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.8
+    )
 
-    try:
-
-        response = client.models.generate_content(
-            model=MODEL,
-            contents=prompt
-        )
-
-        return response.text.strip()
-
-    except Exception as e:
-
-        print(f"Erreur Gemini : {e}")
-
-        return ""
+    return completion.choices[0].message.content

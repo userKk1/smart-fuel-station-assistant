@@ -9,10 +9,9 @@ Ta mission est de rédiger une réclamation réaliste destinée au service clien
 
 Informations :
 
-- Identifiant : {complaint_id}
 - Date : {date}
-- Station : {station}
-- Ville : {city}
+- id de Station : {station_id}
+- Station : {station_name}
 - Catégorie : {category}
 - Problème rencontré : {reason}
 - Niveau de gravité : {severity}
@@ -26,7 +25,7 @@ Consignes :
 - Exprime une insatisfaction professionnelle sans être agressif.
 - Ne fais pas de liste.
 - Ne mentionne pas que tu es une IA.
-- Longueur : entre 120 et 180 mots.
+- Longueur : court comme si un vrai client l'avait rédigé.
 
 Réclamation :
 """
@@ -44,12 +43,14 @@ Tu dois rédiger un rapport technique professionnel.
 Informations :
 
 - Date : {date}
-- Station : {station}
-- Ville : {city}
-- Pompe : {pump}
-- Type de panne : {failure}
-- Durée estimée de réparation : {repair_time} jour(s)
-
+- id de Station : {station_id}
+- Station : {station_name}
+- Pompe : {pump_id}
+- Type de panne : {failure_type}
+- Durée estimée de réparation : {start_date} à {expected_end_date} jour(s)
+- Date fin de réparation : {end_date}
+- Technicien : {technician}
+- Status : {status}
 Le rapport doit contenir :
 
 - le contexte de l'intervention

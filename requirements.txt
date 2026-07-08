@@ -1,6 +1,5 @@
 pandas
 numpy
-faker
 python-dotenv
-google-genai
+groq
 requests

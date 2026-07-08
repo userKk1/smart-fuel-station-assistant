@@ -1,8 +1,8 @@
 import pandas as pd
 from pathlib import Path
 
-from prompts import COMPLAINT_PROMPT
-from llm_client import generate
+from .prompts import COMPLAINT_PROMPT
+from .llm_client import generate
 
 
 INPUT_FILE = "data/complaints.csv"
@@ -22,17 +22,19 @@ def generate_complaint():
 
         prompt = COMPLAINT_PROMPT.format(
 
-            station=row["station_name"],
-
             date=row["date"],
+
+            station_id=row["station_id"],
+
+            station_name=row["station_name"],
 
             category=row["category"],
 
             reason=row["reason"],
 
-            affected=row["affected_customers"],
+            severity=row["severity"],
 
-            severity=row["severity"]
+            affected=row["affected_customers"]
 
         )
 
