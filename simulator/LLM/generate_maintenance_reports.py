@@ -8,7 +8,7 @@ from .prompts import MAINTENANCE_PROMPT
 
 INPUT_FILE = "data/maintenance.csv"
 
-OUTPUT_FOLDER = Path("llm/documents/maintenance")
+OUTPUT_FOLDER = Path("simulator/llm/documents/maintenance")
 
 
 def generate_maintenance_reports():

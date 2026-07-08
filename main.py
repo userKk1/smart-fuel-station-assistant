@@ -7,7 +7,7 @@ from simulator.inventory import InventoryGenerator
 
 if __name__ == "__main__":
 
-    StationGenerator().save()
+    """StationGenerator().save()
 
     PumpGenerator().save()
 
@@ -16,6 +16,6 @@ if __name__ == "__main__":
     engine = SimulationEngine()
 
     engine.run()
-
+"""
     generate_complaint()
     generate_maintenance_reports()

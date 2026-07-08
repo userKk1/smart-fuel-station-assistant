@@ -7,7 +7,7 @@ from .llm_client import generate
 
 INPUT_FILE = "data/complaints.csv"
 
-OUTPUT_FOLDER = Path("llm/documents/complaints")
+OUTPUT_FOLDER = Path("simulator/llm/documents/complaints")
 
 
 def generate_complaint():
