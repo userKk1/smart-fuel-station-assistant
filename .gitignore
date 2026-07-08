@@ -14,8 +14,8 @@ env/
 .vscode/
 
 # Generated documents
-llm/documents/complaints/*.txt
-llm/documents/maintenance/*.txt
+simulator/LLM/documents/complaints/*.txt
+simulator/LLM/documents/maintenance/*.txt
 
 # Generated csv 
 data/*.csv
