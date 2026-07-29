@@ -56,8 +56,8 @@ class DataLoader:
 
 if __name__ == "__main__":
 
-    from extract import DataExtractor
-    from transform import DataTransformer
+    from data.ETL.extract import DataExtractor
+    from data.ETL.transform import DataTransformer
 
     datasets = DataExtractor().extract()
 

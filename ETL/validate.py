@@ -113,7 +113,7 @@ class DataValidator:
 
 if __name__ == "__main__":
 
-    from extract import DataExtractor
+    from data.ETL.extract import DataExtractor
 
     datasets = DataExtractor().extract()
 
