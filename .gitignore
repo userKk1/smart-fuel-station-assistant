@@ -20,6 +20,6 @@ simulator/LLM/documents/maintenance/*.txt
 # Generated csv 
 data/*.csv
 
-RAG/
-
 vector_store/
+
+database/

@@ -165,8 +165,8 @@ PRICE = {
 
 FAILURE_RATE = 0.01
 
-
-DELIVERY_THRESHOLD = 0.45
+#si le reservoir < 45% -> déclenche automatiquement une commande de livraison de carburant
+DELIVERY_THRESHOLD = 0.45 
 
 # ===========================
 # FAILURE CONFIGURATION
@@ -186,7 +186,7 @@ FAILURE_CONFIG = {
 
     "Pump Failure": {
         "base_probability": 0.0001,
-        "usage_factor": 0.000002,
+        "usage_factor": 0.000002, #le risque de panne ajouté à chaque utilisation  
         "repair_days": 3
     },
 

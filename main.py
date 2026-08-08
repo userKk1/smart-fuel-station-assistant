@@ -19,5 +19,9 @@ if __name__ == "__main__":
 
     generate_complaint()
     generate_maintenance_reports()
+<<<<<<< HEAD
 
     
+=======
+"""
+>>>>>>> 2d408fc5d67d67dc3079a908f308383af4439d75
