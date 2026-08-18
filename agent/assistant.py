@@ -7,7 +7,7 @@ from .hybrid_agent import HybridAgent
 from .conversation import ConversationMemory
 from .context_resolver import ContextResolver
 from .prompts import GENERAL_PROMPT
-
+from .chart_agent import ChartAgent
 
 class SmartFuelAssistant:
 
@@ -26,6 +26,9 @@ class SmartFuelAssistant:
 
         # Résolution du contexte
         self.context_resolver = ContextResolver()
+
+        self.chart_agent = ChartAgent(self.sql_agent)
+
 
     def ask(self, question):
 
@@ -80,6 +83,10 @@ class SmartFuelAssistant:
             answer = self.hybrid_agent.ask(
                 resolved_question
             )
+
+        elif agent == "chart":
+
+            return self.chart_agent.ask(question)
 
         elif agent == "general":
             prompt = GENERAL_PROMPT.format(

@@ -21,6 +21,23 @@ Choisis UNE SEULE catégorie parmi :
   salutations, remerciements, "comment ça va ?", "qui es-tu ?",
   "que peux-tu faire ?", etc.
 
+- chart
+  Pour les questions qui demandent explicitement une
+  représentation graphique ou une visualisation des données.
+
+  Exemples :
+  - "Montre-moi les transactions en graphique"
+  - "Affiche les ventes sous forme de graphique"
+  - "Fais-moi un graphe des pannes"
+  - "Visualise les transactions par mois"
+  - "Je veux voir l'évolution des ventes en graph"
+  - "en graph"
+  
+  IMPORTANT :
+  Si l'utilisateur demande explicitement un graphique,
+  utilise "chart", même si les données nécessaires
+  proviennent de SQL.
+
 - sql
   Pour les questions nécessitant des données structurées
   provenant de la base SQL :
@@ -31,7 +48,7 @@ Choisis UNE SEULE catégorie parmi :
   Pour les questions nécessitant des informations textuelles
   provenant des documents :
   réclamations, rapports de maintenance, descriptions,
-  résumés, symptômes, diagnostics, recommandations, etc.
+  symptômes, diagnostics, recommandations, etc.
 
 - hybrid
   Pour les questions nécessitant à la fois des données SQL
@@ -39,44 +56,70 @@ Choisis UNE SEULE catégorie parmi :
 
 Règles :
 
-1. Retourne uniquement :
+1. Retourne uniquement une catégorie :
    general
+   chart
    sql
    rag
-   ou
    hybrid
 
 2. Ne donne aucune explication.
 
-3. Une question générale et informelle doit être classée
+3. Une conversation générale et informelle doit être classée
    comme "general".
 
-4. Une question qui demande uniquement des informations
-   quantitatives ou structurées doit être classée comme "sql".
+4. Une demande explicite de graphique ou de visualisation
+   doit être classée comme "chart".
 
-5. Une question portant uniquement sur le contenu des
+5. Une question quantitative ou structurée sans demande
+   de graphique doit être classée comme "sql".
+
+6. Une question portant uniquement sur le contenu des
    documents doit être classée comme "rag".
 
-6. Si les données SQL et les documents sont tous les deux
-   nécessaires, utilise "hybrid".
+7. Si les données SQL et les documents sont tous les deux
+   nécessaires pour répondre à la question, utilise "hybrid".
+
+8. Si la question demande un graphique ET nécessite des
+   données SQL, utilise "chart". Le ChartAgent se chargera
+   de récupérer les données SQL nécessaires.
 
 Catégorie :
 """
 
         result = generate(prompt).strip().lower()
 
-        # Nettoyage au cas où le LLM ajoute du texte
-        if "general" in result:
-            return "general"
+        # =================================================
+        # Nettoyage de la réponse du LLM
+        # =================================================
 
-        if "hybrid" in result:
-            return "hybrid"
+        # On cherche une catégorie exacte dans la réponse.
+        categories = [
+            "general",
+            "chart",
+            "hybrid",
+            "sql",
+            "rag"
+        ]
 
-        if "sql" in result:
-            return "sql"
+        for category in categories:
 
-        if "rag" in result:
-            return "rag"
+            if result == category:
 
-        # Sécurité : route par défaut
+                return category
+
+        # =================================================
+        # Sécurité si le LLM ajoute du texte
+        # =================================================
+
+        for category in categories:
+
+            if category in result:
+
+                return category
+
+        # =================================================
+        # Route par défaut
+        # =================================================
+
         return "general"

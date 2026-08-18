@@ -8,7 +8,13 @@ class SQLAgent:
 
     def __init__(self, database_path="database/station.db"):
 
-        self.connection = sqlite3.connect(database_path)
+        self.connection = sqlite3.connect(database_path, check_same_thread=False)
+
+        # Lire le schéma une seule fois
+        self.schema = self.get_schema()
+
+        # Construire un profil léger des données
+        self.data_profile = self.get_data_profile()
 
     # =====================================================
     # Lire automatiquement le schéma de la base
@@ -46,6 +52,81 @@ class SQLAgent:
         return schema
 
     # =====================================================
+    # Profil des données
+    # =====================================================
+
+    def get_data_profile(self):
+
+        cursor = self.connection.cursor()
+
+        cursor.execute("""
+            SELECT name
+            FROM sqlite_master
+            WHERE type='table'
+            ORDER BY name
+        """)
+
+        tables = [row[0] for row in cursor.fetchall()]
+
+        profile = ""
+
+        for table in tables:
+
+            profile += f"\nTable : {table}\n"
+
+            # ---------------------------------------------
+            # Colonnes
+            # ---------------------------------------------
+
+            cursor.execute(f"PRAGMA table_info({table})")
+
+            columns = cursor.fetchall()
+
+            column_names = [
+                column[1]
+                for column in columns
+            ]
+
+            # ---------------------------------------------
+            # 5 lignes d'exemple
+            # ---------------------------------------------
+
+            cursor.execute(
+                f"SELECT * FROM {table} LIMIT 5"
+            )
+
+            rows = cursor.fetchall()
+
+            if rows:
+
+                profile += "\nExemples de données :\n"
+
+                for row in rows:
+
+                    values = []
+
+                    for name, value in zip(
+                        column_names,
+                        row
+                    ):
+
+                        values.append(
+                            f"{name}={value}"
+                        )
+
+                    profile += (
+                        "- "
+                        + ", ".join(values)
+                        + "\n"
+                    )
+
+            else:
+
+                profile += "\nAucune donnée.\n"
+
+        return profile
+
+    # =====================================================
     # Générer une requête SQL
     # =====================================================
 
@@ -55,7 +136,9 @@ class SQLAgent:
 
         prompt = SQL_PROMPT.format(
 
-            schema=schema,
+            schema=self.schema,
+
+            data_profile=self.data_profile,
 
             question=question
 
