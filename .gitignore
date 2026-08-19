@@ -22,6 +22,4 @@ data/*.csv
 
 vector_store/
 
-assets/*
-
 database/

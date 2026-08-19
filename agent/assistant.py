@@ -15,9 +15,7 @@ class SmartFuelAssistant:
 
         self.router = Router()
 
-        self.sql_agent = SQLAgent()
-
-        self.rag_agent = RAGAgent()
+        self.sql_agent=SQLAgent()
 
         self.hybrid_agent = HybridAgent()
 
@@ -66,19 +64,8 @@ class SmartFuelAssistant:
         # 4. Exécuter l'agent
         # ==========================================
 
-        if agent == "sql":
 
-            answer = self.sql_agent.ask(
-                resolved_question
-            )
-
-        elif agent == "rag":
-
-            answer = self.rag_agent.ask(
-                resolved_question
-            )
-
-        elif agent == "hybrid":
+        if agent == "hybrid":
 
             answer = self.hybrid_agent.ask(
                 resolved_question
