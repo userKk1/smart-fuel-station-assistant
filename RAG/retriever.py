@@ -10,7 +10,7 @@ class Retriever:
             path="vector_store/chroma_db"
         )
 
-        self.collection = self.client.get_collection(
+        self.collection = self.client.get_or_create_collection(
             "fuel_station_documents"
         )
 
