@@ -1,0 +1,37 @@
+[
+    {
+        "id": 1,
+        "question": "Quel est le nombre total de transactions dans le réseau ?",
+        "expected_agent": "sql",
+        "ground_truth": "61227",
+        "eval_type": "exact_match"
+    },
+    {
+        "id": 2,
+        "question": "Quel est le chiffre d'affaires total généré par toutes les stations ?",
+        "expected_agent": "sql",
+        "ground_truth": "26268777.49",
+        "eval_type": "approx_match"
+    },
+    {
+        "id": 3,
+        "question": "Quelle station a subi le plus de pannes et combien ?",
+        "expected_agent": "sql",
+        "ground_truth": "Casablanca Ain Sebaa avec 2 pannes",
+        "eval_type": "keyword_match"
+    },
+    {
+        "id": 4,
+        "question": "Quel est le motif de réclamation le plus fréquent chez les clients ?",
+        "expected_agent": "rag",
+        "ground_truth": "Card payment failed",
+        "eval_type": "keyword_match"
+    },
+    {
+        "id": 5,
+        "question": "Quelles sont les catégories de plaintes classées comme graves ?",
+        "expected_agent": "rag",
+        "ground_truth": "Stock",
+        "eval_type": "keyword_match"
+    }
+]
