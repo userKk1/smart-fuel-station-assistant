@@ -2,6 +2,7 @@ import json
 import time
 import sys
 import os
+import re
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
@@ -26,8 +27,7 @@ def run_evaluation():
 
     for item in dataset:
         question = item["question"]
-        # On nettoie la vraie réponse (enlever espaces et changer virgules en points)
-        ground_truth = item["ground_truth"].lower().replace(" ", "").replace(",", ".")
+        ground_truth = item["ground_truth"]
         eval_type = item["eval_type"]
 
         print(f"Question {item['id']}: {question}")
@@ -43,23 +43,27 @@ def run_evaluation():
         latency = end_time - start_time
         total_latency += latency
 
-        # On nettoie aussi la réponse de l'IA de la même façon
-        ai_response_lower = ai_response.lower().replace(" ", "").replace(",", ".")
         score = 0
+        ai_response_lower = ai_response.lower()
 
-        if eval_type == "exact_match" or eval_type == "approx_match":
-            # Pour les chiffres, on vérifie simplement si le nombre est dans la réponse
-            if ground_truth in ai_response_lower:
+        if eval_type in ["exact_match", "approx_match"]:
+            # Extract only digits from both strings to ignore spaces, bolding, etc.
+            gt_digits = re.sub(r'\D+', '', ground_truth)
+            ai_digits = re.sub(r'\D+', '', ai_response)
+            
+            if gt_digits and gt_digits in ai_digits:
                 score = 100
                 
         elif eval_type == "keyword_match":
-            keywords = ground_truth.split()
+            keywords = ground_truth.lower().split()
             found = sum(1 for word in keywords if word in ai_response_lower)
             score = (found / len(keywords)) * 100 if keywords else 0
 
         scores.append(score)
-        display_response = ai_response[:80] + "..." if len(ai_response) > 80 else ai_response
-        print(f"   AI Response: {display_response} | Score: {score:.0f}% | Latency: {latency:.2f}s\n")
+        
+        # Simple and clear output
+        print(f"   AI Response: {ai_response[:100]}...")
+        print(f"   Score: {score}% | Latency: {latency:.2f}s\n")
 
     avg_score = sum(scores) / len(scores) if scores else 0
     avg_latency = total_latency / len(dataset) if dataset else 0
@@ -67,7 +71,7 @@ def run_evaluation():
     print("=" * 50)
     print("EVALUATION RESULTS")
     print("=" * 50)
-    print(f"Average accuracy score : {avg_score:.2f}%")
+    print(f"Average accuracy score : {avg_score}%")
     print(f"Average latency        : {avg_latency:.2f} seconds")
     print(f"Total questions tested : {len(dataset)}")
 
