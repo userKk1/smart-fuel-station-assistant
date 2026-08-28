@@ -3,6 +3,7 @@ import streamlit as st
 import base64
 import pandas as pd
 
+
 from agent.assistant import SmartFuelAssistant
 from agent.database import (
     get_dashboard_kpis,
