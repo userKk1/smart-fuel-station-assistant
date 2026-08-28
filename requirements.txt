@@ -4,3 +4,8 @@ python-dotenv
 groq
 requests
 plotly
+streamlit
+chromadb
+sentence-transformers
+langchain-text-splitters
+langchain-core
