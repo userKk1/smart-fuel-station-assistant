@@ -5,13 +5,13 @@ class Router:
 
     def route(self, question):
         prompt = f"""
-Tu es le routeur d'un assistant intelligent pour un réseau
-de stations-service.
+You are the router for an intelligent assistant designed for a
+service station network.
 
-Question utilisateur :
+User question:
 {question}
 
-Tu dois choisir UNE SEULE catégorie parmi :
+You must choose EXACTLY ONE category from:
 
 - general
 - chart
@@ -19,142 +19,142 @@ Tu dois choisir UNE SEULE catégorie parmi :
 
 ============================================================
 GENERAL
-============================================================
+=======
 
-Utilise "general" uniquement pour les conversations générales
-ou informelles qui ne nécessitent aucune donnée de la base
-et aucune information documentaire.
+Use "general" only for general or informal conversations
+that do not require any database data
+or any documentary information.
 
-Exemples :
+Examples:
 
-- "Bonjour"
-- "Salut"
-- "Merci"
-- "Comment ça va ?"
-- "Qui es-tu ?"
-- "Que peux-tu faire ?"
-- "Comment utiliser cet assistant ?"
+- "Hello"
+- "Hi"
+- "Thank you"
+- "How are you?"
+- "Who are you?"
+- "What can you do?"
+- "How do I use this assistant?"
 
 ============================================================
 CHART
-============================================================
+=====
 
-Utilise "chart" lorsqu'une représentation graphique,
-un graphique, une courbe, un histogramme ou une visualisation
-est explicitement demandée.
+Use "chart" when a graphical representation,
+chart, graph, curve, histogram, or visualization
+is explicitly requested.
 
-Exemples :
+Examples:
 
-- "Montre-moi les transactions en graphique"
-- "Affiche les ventes sous forme de graphique"
-- "Fais-moi un graphe des pannes"
-- "Visualise les transactions par mois"
-- "Montre l'évolution du chiffre d'affaires en graph"
-- "Compare les villes en graphique"
-- "Je veux un histogramme des ventes"
-- "en graph"
+- "Show me the transactions as a chart"
+- "Display the sales as a graph"
+- "Create a graph of the breakdowns"
+- "Visualize the transactions by month"
+- "Show the evolution of revenue as a graph"
+- "Compare the cities in a chart"
+- "I want a histogram of the sales"
+- "as a graph"
 
-IMPORTANT :
+IMPORTANT:
 
-Si l'utilisateur demande explicitement un graphique,
-classe toujours la question comme "chart".
+If the user explicitly requests a chart or graph,
+always classify the question as "chart".
 
-Le ChartAgent est responsable de récupérer les données
-nécessaires et de générer le graphique.
+The ChartAgent is responsible for retrieving the necessary
+data and generating the chart.
 
 ============================================================
 HYBRID
-============================================================
+======
 
-Utilise "hybrid" pour toutes les autres questions qui
-nécessitent des informations provenant de la base de données,
-des documents, ou une analyse des données.
+Use "hybrid" for all other questions that
+require information from the database,
+documents, or data analysis.
 
-Cela inclut notamment :
+This includes, in particular:
 
-- statistiques
-- comptages
-- sommes
-- moyennes
-- comparaisons
+- statistics
+- counts
+- sums
+- averages
+- comparisons
 - transactions
-- chiffre d'affaires
-- litres vendus
-- stocks
-- pannes
+- revenue
+- liters sold
+- inventory
+- breakdowns
 - maintenance
-- réclamations
-- informations sur les stations
-- informations sur les pompes
-- prix
-- performances
+- complaints
+- station information
+- pump information
+- prices
+- performance
 - anomalies
-- tendances
+- trends
 - analyses
-- interprétations
-- causes possibles
-- recommandations
-- relations entre plusieurs indicateurs
+- interpretations
+- possible causes
+- recommendations
+- relationships between multiple indicators
 
-Exemples :
+Examples:
 
-- "Combien avons-nous de stations ?"
-- "Combien avons-nous de transactions ?"
-- "Quelle ville a le plus de transactions ?"
-- "Quelle station a le plus de pannes ?"
-- "Quelles stations ont un stock faible ?"
-- "Quel est le chiffre d'affaires par ville ?"
-- "Pourquoi cette station a-t-elle beaucoup de pannes ?"
-- "Analyse les performances des stations."
-- "Y a-t-il une relation entre les pannes et l'âge des pompes ?"
-- "Quelle station nécessite le plus d'attention ?"
-- "Donne-moi des recommandations pour améliorer le réseau."
-- "Quelles sont les causes possibles des réclamations ?"
+- "How many stations do we have?"
+- "How many transactions do we have?"
+- "Which city has the most transactions?"
+- "Which station has the most breakdowns?"
+- "Which stations have low inventory?"
+- "What is the revenue by city?"
+- "Why does this station have so many breakdowns?"
+- "Analyze the performance of the stations."
+- "Is there a relationship between breakdowns and pump age?"
+- "Which station requires the most attention?"
+- "Give me recommendations to improve the network."
+- "What are the possible causes of the complaints?"
 
-Le HybridAgent décidera ensuite quelles sources utiliser :
-SQL, documents RAG, ou les deux.
-
-============================================================
-RÈGLES DE PRIORITÉ
-============================================================
-
-1. Si la question est une conversation générale sans besoin
-   de données → "general".
-
-2. Si la question demande explicitement un graphique,
-   une courbe, un histogramme ou une visualisation → "chart".
-
-3. Toutes les autres questions nécessitant des informations
-   sur le réseau de stations-service → "hybrid".
-
-4. Ne retourne jamais "sql".
-
-5. Ne retourne jamais "rag".
-
-6. Une question quantitative simple comme :
-   "Combien de stations avons-nous ?"
-   doit être classée "hybrid".
-
-7. Une question analytique comme :
-   "Pourquoi cette station a beaucoup de pannes ?"
-   doit être classée "hybrid".
-
-8. Une question demandant un graphique reste "chart",
-   même si elle nécessite des données SQL ou des documents.
+The HybridAgent will then decide which sources to use:
+SQL, RAG documents, or both.
 
 ============================================================
-FORMAT DE RÉPONSE
+PRIORITY RULES
 ============================================================
 
-Retourne uniquement UNE des trois valeurs suivantes :
+1. If the question is a general conversation that does not require
+   data → "general".
+
+2. If the question explicitly requests a chart,
+   graph, histogram, or visualization → "chart".
+
+3. All other questions requiring information
+   about the service station network → "hybrid".
+
+4. Never return "sql".
+
+5. Never return "rag".
+
+6. A simple quantitative question such as:
+   "How many stations do we have?"
+   must be classified as "hybrid".
+
+7. An analytical question such as:
+   "Why does this station have so many breakdowns?"
+   must be classified as "hybrid".
+
+8. A question requesting a chart remains "chart",
+   even if it requires SQL data or documents.
+
+============================================================
+RESPONSE FORMAT
+============================================================
+
+Return ONLY ONE of the following three values:
 
 general
 chart
 hybrid
 
-Ne donne aucune explication.
+Do not provide any explanation.
 
-Catégorie :
+Category:
 """
 
         result = generate(prompt).strip().lower()
