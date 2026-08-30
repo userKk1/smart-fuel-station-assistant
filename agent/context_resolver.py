@@ -10,53 +10,72 @@ class ContextResolver:
             return question
 
         prompt = f"""
-Tu es un module de résolution du contexte conversationnel
-d'un assistant intelligent de stations-service.
+You are a conversational context resolution module
+for an intelligent fuel station assistant.
 
-Ton rôle est de déterminer si la nouvelle question dépend
-des échanges précédents.
+Your role is to determine whether the new question depends
+on previous conversation exchanges.
 
 ========================
-HISTORIQUE
+CONVERSATION HISTORY
 ========================
 
 {history}
 
 ========================
-NOUVELLE QUESTION
+NEW QUESTION
 ========================
 
 {question}
 
 ========================
-RÈGLES
+RULES
 ========================
 
-1. Si la nouvelle question est complète et compréhensible
-   indépendamment de l'historique, retourne-la exactement
-   telle quelle.
+1. If the new question is complete and understandable
+   independently of the conversation history, return it exactly
+   as provided.
 
-2. Si elle dépend de l'historique, reformule-la en une
-   question complète et autonome.
+2. If the new question depends on the conversation history,
+   rewrite it as a complete and self-contained question.
 
-3. Conserve exactement les informations importantes :
-   - noms de stations
-   - villes
+3. Preserve exactly all important information, including:
+   - station names
+   - cities
    - dates
-   - nombres
-   - types de pannes
-   - carburants
-   - réclamations
-   - autres éléments importants.
+   - numbers
+   - failure types
+   - fuel types
+   - complaints
+   - and any other relevant elements.
 
-4. Ne réponds PAS à la question.
+4. Do NOT answer the question.
 
-5. N'ajoute aucune information qui n'est pas présente
-   dans la question ou dans l'historique.
+5. Do NOT add any information that is not present
+   in the question or the conversation history.
 
-6.Fais très attention aux pronoms et aux références implicites
+6. Pay close attention to pronouns and implicit references,
+   such as:
+   - "elle"
+   - "il"
+   - "cette station"
+   - "ce carburant"
+   - "la précédente"
+   - "celle-ci"
+   - "combien"
+   - "pourquoi"
+   - and similar references.
 
-7. Retourne UNIQUEMENT la question finale.
+7. Resolve ambiguous references using the conversation history
+   whenever the intended reference is clearly identifiable.
+
+8. If a reference cannot be resolved reliably from the history,
+   do not invent an interpretation. Preserve the question
+   without adding unsupported information.
+
+9. Return ONLY the final question.
+
+Final question:
 """
 
         resolved_question = generate(prompt)
