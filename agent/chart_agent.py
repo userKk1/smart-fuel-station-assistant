@@ -34,57 +34,65 @@ class ChartAgent:
             )
 
         prompt = f"""
-Tu es un expert en visualisation de données Python.
+You are a Python data visualization expert.
 
-Question de l'utilisateur :
+User question:
 {question}
 
-Les données suivantes viennent directement
-d'une base SQLite de stations-service.
+The following data comes directly from a SQLite database
+containing information about a network of fuel stations.
 
-Colonnes :
+Columns:
 {columns}
 
-Données :
+Data:
 {json.dumps(data, ensure_ascii=False, default=str)}
 
-Ta tâche est de générer un graphique adapté
-à la question et aux données.
+Your task is to generate an appropriate chart based on
+the user's question and the provided data.
 
-RÈGLES STRICTES :
+STRICT RULES:
 
-1. Utilise uniquement matplotlib.pyplot via la variable `plt`.
-2. N'écris aucune instruction `import`.
-3. N'utilise aucune donnée fictive.
-4. Utilise uniquement les données fournies.
-5. Ne fais aucune requête SQL.
-6. Ne lis aucun fichier.
-7. Ne fais aucun appel réseau.
-8. Le graphique doit être adapté à la question.
-9. Crée obligatoirement une liste appelée `figures`.
-10. Si un seul graphique est nécessaire, crée une seule figure
-    et ajoute-la à `figures`.
-11. Si plusieurs graphiques sont nécessaires, crée une figure
-    séparée pour chaque graphique et ajoute chaque figure à `figures`.
-12. Utilise `fig, ax = plt.subplots()` pour chaque graphique.
-13. N'utilise jamais plusieurs métriques ayant des unités
-    ou des échelles différentes sur les mêmes axes.
-14. Ne génère aucune explication.
-15. Retourne uniquement le code Python.
-16. N'utilise PAS `plt.show()`.
-17. N'utilise pas de bloc Markdown.
-18. Les résultats SQL sont disponibles dans la variable `data`.
-19. Utilise obligatoirement `data` pour accéder aux résultats.
+1. Use only matplotlib.pyplot through the `plt` variable.
+2. Do not write any import statement.
+3. Do not use fictitious or invented data.
+4. Use only the data provided.
+5. Do not execute any SQL query.
+6. Do not read any file.
+7. Do not make any network request.
+8. The chart must be appropriate for the user's question.
+9. You must create a list called `figures`.
+10. If only one chart is required, create one figure
+    and add it to `figures`.
+11. If multiple charts are required, create a separate figure
+    for each chart and add each figure to `figures`.
+12. Use `fig, ax = plt.subplots()` for every chart.
+13. Never place multiple metrics with different units
+    or incompatible scales on the same axes.
+14. Do not generate any explanation.
+15. Return only Python code.
+16. Do not use `plt.show()`.
+17. Do not use Markdown code blocks.
+18. The SQL results are available in the `data` variable.
+19. You must use `data` to access the SQL results.
 
+LANGUAGE RULE:
 
+20. All chart titles, axis labels, legends, annotations,
+    and other user-visible text inside the chart must be written
+    in French.
+21. The chart must be clear and professional for a French-speaking
+    user.
+22. Do not translate database column names unless necessary
+    for user-visible chart labels.
 
-Exemple de structure :
+Example structure:
 
 figures = []
 
 fig, ax = plt.subplots(figsize=(4, 4))
 
-# graphique
+# chart
 
 ax.set_title("...")
 ax.set_xlabel("...")
@@ -95,7 +103,7 @@ plt.tight_layout()
 figures.append(fig)
 
 
-Code Python :
+Python code:
 """
 
         code = generate(prompt)
