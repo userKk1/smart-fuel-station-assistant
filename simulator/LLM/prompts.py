@@ -1,68 +1,79 @@
 # ===========================
-# PROMPT - RECLAMATIONS CLIENTS
+# PROMPT - CUSTOMER COMPLAINTS
 # ===========================
 
 COMPLAINT_PROMPT = """
-Tu es un client d'une station-service.
+You are a customer of a gas station.
 
-Ta mission est de rédiger une réclamation réaliste destinée au service clientèle.
+Your task is to write a realistic complaint addressed to the customer service department.
 
-Informations :
+Information:
 
-- Date : {date}
-- id de Station : {station_id}
-- Station : {station_name}
-- Catégorie : {category}
-- Problème rencontré : {reason}
-- Niveau de gravité : {severity}
-- Nombre de clients concernés : {affected}
+- Date: {date}
+- Station ID: {station_id}
+- Station name: {station_name}
+- Category: {category}
+- Problem encountered: {reason}
+- Severity level: {severity}
+- Number of affected customers: {affected}
 
-Consignes :
+Instructions:
 
-- Rédige UNE SEULE réclamation représentant l'ensemble des clients concernés.
-- Le texte doit être naturel et crédible.
-- Décris les conséquences sur les clients.
-- Exprime une insatisfaction professionnelle sans être agressif.
-- Ne fais pas de liste.
-- Ne mentionne pas que tu es une IA.
-- Longueur : court comme si un vrai client l'avait rédigé.
+- Write ONE single complaint representing all affected customers.
+- The complaint must be natural, realistic, and credible.
+- Describe the consequences experienced by the customers.
+- Express professional dissatisfaction without being aggressive.
+- Do not use a list.
+- Do not mention that you are an AI.
+- Keep the complaint short, as if it had been written by a real customer.
+- Write the entire complaint in French.
+- Do not include an English translation.
+- Do not add any explanation before or after the complaint.
 
-Réclamation :
+Complaint:
 """
 
 
 # ===========================
-# PROMPT - RAPPORT DE MAINTENANCE
+# PROMPT - MAINTENANCE REPORT
 # ===========================
 
 MAINTENANCE_PROMPT = """
-Tu es un technicien de maintenance d'un réseau de stations-service.
+You are a maintenance technician working for a gas station network.
 
-Tu dois rédiger un rapport technique professionnel.
+Your task is to write a professional technical maintenance report.
 
-Informations :
+Information:
 
-- Date : {date}
-- id de Station : {station_id}
-- Station : {station_name}
-- Pompe : {pump_id}
-- Type de panne : {failure_type}
-- Durée estimée de réparation : {start_date} à {expected_end_date} jour(s)
-- Date fin de réparation : {end_date}
-- Technicien : {technician}
-- Status : {status}
-Le rapport doit contenir :
+- Date: {date}
+- Station ID: {station_id}
+- Station name: {station_name}
+- Pump: {pump_id}
+- Failure type: {failure_type}
+- Estimated repair duration: {start_date} to {expected_end_date} day(s)
+- Repair completion date: {end_date}
+- Technician: {technician}
+- Status: {status}
 
-- le contexte de l'intervention
-- les symptômes observés
-- le diagnostic effectué
-- les actions réalisées
-- les tests de validation
-- les recommandations éventuelles
+The report must include:
 
-Le style doit être professionnel.
+- the context of the intervention
+- the symptoms observed
+- the diagnosis performed
+- the actions carried out
+- the validation tests
+- any relevant recommendations
 
-Longueur : entre 150 et 250 mots.
+Instructions:
 
-Rapport :
+- Use a professional and technically accurate style.
+- Base the report only on the information provided above.
+- Do not invent technical details that are not supported by the provided information.
+- Do not mention that you are an AI.
+- Write between 150 and 250 words.
+- Write the entire report in French.
+- Do not include an English translation.
+- Do not add any explanation before or after the report.
+
+Maintenance report:
 """
