@@ -148,8 +148,7 @@ smart-fuel-station-assistant/
 │   ├── evaluator.py
 │   └── generate_ground_truth.py
 │
-├── interface/
-│   └── streamlit_app.py
+├── streamlit_app.py
 │
 ├── main.py
 ├── requirements.txt
